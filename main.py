@@ -6,6 +6,8 @@ import json
 def is_valid_url(url):
     return url.startswith("http://") or url.startswith("https://")
 
+def pause():
+    input("\nPress Enter to continue...")
 
 def load_urls():
     try:
@@ -61,7 +63,7 @@ while True:
         original_url = input("Enter URL: ")
         if not is_valid_url(original_url):
             print("Invalid URL. The URL must start with http:// or https://")
-            input("Press Enter to continue...")
+            pause()
             continue
 
         code = generate_short_code(urls)
@@ -73,7 +75,7 @@ while True:
         save_urls(urls)
 
         print(f"Generated code: {code}")
-        input("Press Enter to continue...")
+        pause()
 
     elif option == "2":
         clear_screen()
@@ -86,7 +88,7 @@ while True:
 
             for code, data in urls.items():
                 print(f"{code}: {data['url']} | Clicks: {data['clicks']}")
-        input("Press Enter to continue...")
+        pause()
 
     elif option == "3":
 
@@ -103,7 +105,7 @@ while True:
         else:
             print("URL not found.")
 
-        input("\nPress Enter to continue...")
+        pause()
 
     elif option == "4":
         clear_screen()
@@ -117,7 +119,7 @@ while True:
         else:
             print("URL not found")
 
-        input("\nPress Enter to continue...")
+        pause()
 
     elif option == "0":
         print("Exiting...")
@@ -125,5 +127,5 @@ while True:
 
     else:
         print("Invalid option.")
-        input("Press Enter to continue...")
+        pause()
 
