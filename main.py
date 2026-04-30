@@ -85,9 +85,7 @@ while True:
             print("Stored URLs:\n")
 
             for code, data in urls.items():
-                print(f"{code}: {data["url"]} | Clicks: {data['clicks']}")
-        input("Press Enter to continue...")
-
+                print(f"{code}: {data['url']} | Clicks: {data['clicks']}")
         input("Press Enter to continue...")
 
     elif option == "3":
