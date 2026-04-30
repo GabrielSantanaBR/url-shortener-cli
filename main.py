@@ -3,6 +3,7 @@ import random
 import string
 import json
 
+
 def load_urls():
     try:
         with open("urls.json", "r") as file:
@@ -15,13 +16,17 @@ def save_urls(data):
         json.dump(data, file, indent = 4)
 
 
-def generate_short_code(length = 6):
+def generate_short_code(existing_urls, length = 6):
     characters = string.ascii_letters + string.digits
-    short_code = ""
 
-    for i in range(length):
-        short_code += random.choice(characters)
-    return short_code
+    while True:
+        short_code = ""
+
+        for i in range(length):
+            short_code += random.choice(characters)
+
+        if short_code not in existing_urls:
+            return short_code
 
 
 def clear_screen():
@@ -51,7 +56,7 @@ while True:
 
         original_url = input("Enter URL: ")
 
-        code = generate_short_code()
+        code = generate_short_code(urls)
 
         urls[code] = original_url
         save_urls(urls)
