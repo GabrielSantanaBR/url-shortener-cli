@@ -67,6 +67,7 @@ while True:
     elif option == "2":
         clear_screen()
 
+        print("List URLs")
         if not urls:
             print("No URLs found.")
         else:
@@ -76,12 +77,20 @@ while True:
                 print(f"{code}: {url}")
         input("Press Enter to continue...")
 
-        print("List URLs")
         input("Press Enter to continue...")
 
     elif option == "3":
-        print("Find URL")
-        input("Press Enter to continue...")
+
+        clear_screen()
+
+        code = input("Enter short code: ")
+
+        if code in urls:
+            print(f"Original URL: {urls[code]}")
+        else:
+            print("URL not found.")
+
+        input("\nPress Enter to continue...")
 
     elif option == "4":
         print("Exiting...")
