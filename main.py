@@ -42,7 +42,8 @@ def show_menu():
     [1] Shorten URL
     [2] List URLs
     [3] Find URL
-    [4] Exit
+    [4] Delete URL
+    [0] Exit
     => 
     """)
 
@@ -100,6 +101,20 @@ while True:
         input("\nPress Enter to continue...")
 
     elif option == "4":
+        clear_screen()
+
+        code = input("Enter short code delete: ")
+
+        if code in urls:
+            del urls[code]
+            save_urls(urls)
+            print("URL deleted successfully")
+        else:
+            print("URL not found")
+
+        input("\nPress Enter to continue...")
+
+    elif option == "0":
         print("Exiting...")
         break
 
