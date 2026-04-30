@@ -3,6 +3,9 @@ import random
 import string
 import json
 
+def is_valid_url(url):
+    return url.startswith("http://") or url.startswith("https://")
+
 
 def load_urls():
     try:
@@ -55,6 +58,10 @@ while True:
         clear_screen()
 
         original_url = input("Enter URL: ")
+        if not is_valid_url(original_url):
+            print("Invalid URL. The URL must start with http:// or https://")
+            input("Press Enter to continue...")
+            continue
 
         code = generate_short_code(urls)
 
