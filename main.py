@@ -65,6 +65,17 @@ while True:
         input("Press Enter to continue...")
 
     elif option == "2":
+        clear_screen()
+
+        if not urls:
+            print("No URLs found.")
+        else:
+            print("Stored URLs:\n")
+
+            for code, url in urls.items():
+                print(f"{code}: {url}")
+        input("Press Enter to continue...")
+
         print("List URLs")
         input("Press Enter to continue...")
 
