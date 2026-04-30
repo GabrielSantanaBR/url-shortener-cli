@@ -66,7 +66,10 @@ while True:
 
         code = generate_short_code(urls)
 
-        urls[code] = original_url
+        urls[code] = {
+            "url": original_url,
+            "clicks": 0
+        }
         save_urls(urls)
 
         print(f"Generated code: {code}")
@@ -81,8 +84,8 @@ while True:
         else:
             print("Stored URLs:\n")
 
-            for code, url in urls.items():
-                print(f"{code}: {url}")
+            for code, data in urls.items():
+                print(f"{code}: {data["url"]} | Clicks: {data['clicks']}")
         input("Press Enter to continue...")
 
         input("Press Enter to continue...")
@@ -94,7 +97,11 @@ while True:
         code = input("Enter short code: ")
 
         if code in urls:
-            print(f"Original URL: {urls[code]}")
+            urls[code]["clicks"]+=1
+            save_urls(urls)
+
+            print(f"Original URL: {urls[code]['url']}")
+            print(f"Clicks: {urls[code]['clicks']}")
         else:
             print("URL not found.")
 
