@@ -14,6 +14,17 @@ class URL_Request(BaseModel):
 def home():
     return {"message": "API is working"}
 
+@app.get("/url/{code}")
+def get_url(code: str):
+
+    if code not in urls:
+        raise HTTPException(status_code=404, detail="URL not found")
+
+    urls[code]["clicks"] += 1
+    save_urls(urls)
+
+    return urls[code]
+
 @app.get("/urls")
 def list_urls():
     return urls
