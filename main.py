@@ -114,31 +114,31 @@ def show_menu():
     => 
     """)
 
-urls = load_urls()
+if __name__ == "__main__":
+    urls = load_urls()
+    while True:
+        clear_screen()
+        show_menu()
 
-while True:
-    clear_screen()
-    show_menu()
+        option = input("Choose an option: ")
 
-    option = input("Choose an option: ")
+        if option == "1":
+            shorten_url(urls)
 
-    if option == "1":
-        shorten_url(urls)
+        elif option == "2":
+           list_urls(urls)
 
-    elif option == "2":
-       list_urls(urls)
+        elif option == "3":
+            find_url(urls)
 
-    elif option == "3":
-        find_url(urls)
+        elif option == "4":
+            delete_url(urls)
 
-    elif option == "4":
-        delete_url(urls)
+        elif option == "0":
+            print("Exiting...")
+            break
 
-    elif option == "0":
-        print("Exiting...")
-        break
-
-    else:
-        print("Invalid option.")
-        pause()
+        else:
+            print("Invalid option.")
+            pause()
 
