@@ -25,6 +25,17 @@ def get_url(code: str):
 
     return urls[code]
 
+@app.post("/url/{code}")
+def delete_url(code: str):
+    if code not in urls:
+        raise HTTPException(status_code=404, detail="URL not found")
+
+    del urls[code]
+    save_urls(urls)
+
+    return {"message": "URL deleted successfully"}  
+
+
 @app.get("/urls")
 def list_urls():
     return urls
