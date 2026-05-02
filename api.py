@@ -14,6 +14,9 @@ class URL_Request(BaseModel):
 def home():
     return {"message": "API is working"}
 
+@app.get("/urls")
+def list_urls():
+    return urls
 @app.post("/shorten")
 def shorten_url(request: URL_Request):
 
