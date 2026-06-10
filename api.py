@@ -86,7 +86,7 @@ def shorten_url(request: URL_Request):
     if not is_valid_url(request.url):
         raise HTTPException(status_code=400, detail="Invalid URL. Must start with http:// or https://")
 
-    code = generate_short_code({})
+    code = generate_short_code()
 
     add_url(code, request.url)
 

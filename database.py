@@ -76,3 +76,16 @@ def delete_url_db(code):
 
     connection.commit()
     connection.close()
+
+def code_exists(code):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM urls WHERE code = ?", (code,))
+
+    result = cursor.fetchome()
+
+    connection.close()
+
+    return result is not None
+

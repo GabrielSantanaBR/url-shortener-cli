@@ -86,17 +86,19 @@ def save_urls(data):
         json.dump(data, file, indent = 4)
 
 
-def generate_short_code(existing_urls, length = 6):
+def generate_short_code(length= 6):
     characters = string.ascii_letters + string.digits
 
     while True:
-        short_code = ""
+        code = ""
 
-        for i in range(length):
-            short_code += random.choice(characters)
+        for _ in range(length):
+            code += random.choice(characters)
 
-        if short_code not in existing_urls:
-            return short_code
+        from database import code_exists
+
+        if not code_exists(code):
+            return code
 
 
 def clear_screen():
