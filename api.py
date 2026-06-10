@@ -2,7 +2,14 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
 from main import generate_short_code, is_valid_url
-from database import add_url, create_table
+from database import (
+    add_url,
+    create_table,
+    get_all_urls,
+    get_url_by_code,
+    increment_clicks,
+    delete_url_db
+)
 
 app = FastAPI()
 from database import create_table
@@ -52,8 +59,20 @@ def delete_url(code: str):
 
 
 @app.get("/urls")
-def list_urls():
-    return urls
+def get_urls():
+
+    rows = get_all_urls()
+
+    result = []
+
+    for code, urls, clicks in rows:
+        result.append({
+            "code": code,
+            "urls": urls,
+            "clicks": clicks
+        })
+
+    return result
 @app.post("/shorten")
 def shorten_url(request: URL_Request):
 

@@ -44,3 +44,35 @@ def get_all_urls():
     connection.close()
     return rows
 
+def get_url_by_code(code):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM urls WHERE code = ?", (code,))
+
+    rows = cursor.fetchall()
+    connection.close()
+
+    return rows
+
+def increment_clicks(code):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "UPDATE urls SET clicks = clicks + 1 WHERE code = ?", (code,)
+    )
+
+    connection.commit()
+    connection.close()
+
+def delete_url_db(code):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "DELETE FROM urls WHERE clicks = ?", (code,)
+    )
+
+    connection.commit()
+    connection.close()
