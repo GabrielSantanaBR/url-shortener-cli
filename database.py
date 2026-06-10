@@ -20,3 +20,27 @@ def create_table():
 
     connection.commit()
     connection.close()
+
+def add_url(code, url):
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "INSERT INFO urls (code, url, clicks) VALUES (?, ?, ?)",
+        (code, url, 0)
+    )
+
+    connection.commit()
+    connection.close()
+
+def get_all_urls():
+    connection = get_connection()
+    cursor = connection.cursor()
+
+    cursor.execute("SELECT * FROM urls")
+
+    rows = cursor.fetchall()
+
+    connection.close()
+    return rows
+
