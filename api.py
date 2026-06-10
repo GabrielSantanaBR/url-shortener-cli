@@ -47,9 +47,12 @@ def get_url(code: str):
     increment_clicks(code)
 
     return {
-        "code": row[0],
-        "url": row[1],
-        "clicks": row[2] + 1
+        "success": True,
+        "data": {
+            "code": row[0],
+            "url": row[1],
+            "clicks": row[2] + 1
+        }
     }
 
 @app.delete("/urls/{code}")
@@ -61,11 +64,14 @@ def delete_url(code: str):
 
    delete_url_db(code)
 
-   return {"message": "URL deleted successfully"}
+   return {
+       "success": True,
+       "message": "URL deleted successfully"
+   }
 
 
 @app.get("/urls")
-def get_urls() -> list:
+def get_urls() -> dict:
 
     rows = get_all_urls()
 
@@ -74,11 +80,16 @@ def get_urls() -> list:
     for code, url, clicks in rows:
         result.append({
             "code": code,
-            "urls": url,
+            "url": url,
             "clicks": clicks
         })
 
-    return result
+    return {
+        "success": True,
+        "count": len(result),
+        "data": result
+    }
+
 @app.post("/shorten")
 def shorten_url(request: URL_Request) -> dict:
 
@@ -89,4 +100,11 @@ def shorten_url(request: URL_Request) -> dict:
 
     add_url(code, request.url)
 
-    return {"code": code, "url": request.url}
+    return {
+        "success": True,
+        "message": "URL shortened successfully",
+        "data": {
+            "code": code,
+            "url": request.url
+        }
+    }
