@@ -56,14 +56,14 @@ def get_url(code: str):
 
 @app.delete("/urls/{code}")
 def delete_url(code: str):
-    if code not in urls:
-        raise HTTPException(status_code=404, detail="URL not found")
 
-    del urls[code]
-    save_urls(urls)
+   row = get_url_by_code(code)
+   if row is None:
+       raise HTTPException(status_code=404, detail="URL not found")
 
-    return {"message": "URL deleted successfully"}
+   delete_url_db(code)
 
+   return {"message": "URL deleted successfully"}
 
 
 @app.get("/urls")
