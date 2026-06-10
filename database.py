@@ -1,12 +1,12 @@
 import sqlite3
 
 
-def get_connection():
+def get_connection() -> sqlite3.Connection:
     connection = sqlite3.connect("urls.db")
     return connection
 
 
-def create_table():
+def create_table() -> None:
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -21,7 +21,7 @@ def create_table():
     connection.commit()
     connection.close()
 
-def add_url(code, url):
+def add_url(code: str, url: str) -> None:
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -33,29 +33,31 @@ def add_url(code, url):
     connection.commit()
     connection.close()
 
-def get_all_urls():
+def get_all_urls() -> list:
     connection = get_connection()
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM urls")
+    cursor.execute(
+        "SELECT code, url, clicks FROM urls"
+    )
 
     rows = cursor.fetchall()
 
     connection.close()
     return rows
 
-def get_url_by_code(code):
+def get_url_by_code(code: str):
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute("SELECT * FROM urls WHERE code = ?", (code,))
 
-    rows = cursor.fetchall()
+    rows = cursor.fetchone()
     connection.close()
 
     return rows
 
-def increment_clicks(code):
+def increment_clicks(code: str) -> None:
     connection = get_connection()
     cursor = connection.cursor()
 
@@ -66,24 +68,25 @@ def increment_clicks(code):
     connection.commit()
     connection.close()
 
-def delete_url_db(code):
+def delete_url_db(code: str) -> None:
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute(
-        "DELETE FROM urls WHERE clicks = ?", (code,)
+        "DELETE FROM urls WHERE code = ?",
+        (code,)
     )
 
     connection.commit()
     connection.close()
 
-def code_exists(code):
+def code_exists(code: str) -> bool:
     connection = get_connection()
     cursor = connection.cursor()
 
     cursor.execute("SELECT * FROM urls WHERE code = ?", (code,))
 
-    result = cursor.fetchome()
+    result = cursor.fetchone()
 
     connection.close()
 

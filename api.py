@@ -12,7 +12,6 @@ from database import (
 )
 
 app = FastAPI()
-from database import create_table
 
 create_table()
 
@@ -21,7 +20,7 @@ class URL_Request(BaseModel):
     url: str
 
 @app.get("/")
-def home():
+def home() -> dict:
     return {"message": "API is working"}
 
 @app.get("/r/{code}")
@@ -49,7 +48,7 @@ def get_url(code: str):
 
     return {
         "code": row[0],
-        "urls": row[1],
+        "url": row[1],
         "clicks": row[2] + 1
     }
 
@@ -66,22 +65,22 @@ def delete_url(code: str):
 
 
 @app.get("/urls")
-def get_urls():
+def get_urls() -> list:
 
     rows = get_all_urls()
 
     result = []
 
-    for code, urls, clicks in rows:
+    for code, url, clicks in rows:
         result.append({
             "code": code,
-            "urls": urls,
+            "urls": url,
             "clicks": clicks
         })
 
     return result
 @app.post("/shorten")
-def shorten_url(request: URL_Request):
+def shorten_url(request: URL_Request) -> dict:
 
     if not is_valid_url(request.url):
         raise HTTPException(status_code=400, detail="Invalid URL. Must start with http:// or https://")
