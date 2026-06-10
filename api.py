@@ -38,13 +38,21 @@ def redirect_url(code: str):
 @app.get("/url/{code}")
 def get_url(code: str):
 
-    if code not in urls:
-        raise HTTPException(status_code=404, detail="URL not found")
+    row = get_url_by_code(code)
 
-    urls[code]["clicks"] += 1
-    save_urls(urls)
+    if row is None:
+        raise HTTPException(
+            status_code = 404,
+            detail = "URL not found"
+        )
 
-    return urls[code]
+    increment_clicks(code)
+
+    return {
+        "code": row[0],
+        "urls": row[1],
+        "clicks": row[2] + 1
+    }
 
 @app.delete("/urls/{code}")
 def delete_url(code: str):
