@@ -4,6 +4,9 @@ from fastapi.responses import RedirectResponse
 from main import load_urls, save_urls, generate_short_code,is_valid_url
 
 app = FastAPI()
+from database import create_table
+
+create_table()
 
 urls = load_urls()
 
