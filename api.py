@@ -26,13 +26,12 @@ def home():
 
 @app.get("/r/{code}")
 def redirect_url(code: str):
-    if code not in urls:
+    row = get_url_by_code(code)
+
+    if row is None:
         raise HTTPException(status_code=404, detail="URL not found")
-
-    urls[code]["clicks"] += 1
-    save_urls(urls)
-
-    return RedirectResponse(urls[code]["url"])
+    increment_clicks(code)
+    return RedirectResponse(url=row[1])
 
 
 @app.get("/url/{code}")

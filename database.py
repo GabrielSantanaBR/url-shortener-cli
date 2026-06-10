@@ -26,7 +26,7 @@ def add_url(code, url):
     cursor = connection.cursor()
 
     cursor.execute(
-        "INSERT INFO urls (code, url, clicks) VALUES (?, ?, ?)",
+        "INSERT INTO urls (code, url, clicks) VALUES (?, ?, ?)",
         (code, url, 0)
     )
 
