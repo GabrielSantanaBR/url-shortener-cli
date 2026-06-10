@@ -1,14 +1,14 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.responses import RedirectResponse
-from main import load_urls, save_urls, generate_short_code,is_valid_url
+from main import generate_short_code, is_valid_url
+from database import add_url, create_table
 
 app = FastAPI()
 from database import create_table
 
 create_table()
 
-urls = load_urls()
 
 class URL_Request(BaseModel):
     url: str
@@ -60,13 +60,8 @@ def shorten_url(request: URL_Request):
     if not is_valid_url(request.url):
         raise HTTPException(status_code=400, detail="Invalid URL. Must start with http:// or https://")
 
-    code = generate_short_code(urls)
+    code = generate_short_code({})
 
-    urls[code] = {
-        "url": request.url,
-        "clicks": 0
-    }
-
-    save_urls(urls)
+    add_url(code, request.url)
 
     return {"code": code, "url": request.url}
