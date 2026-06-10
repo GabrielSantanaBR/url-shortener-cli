@@ -14,7 +14,7 @@ class URL_Request(BaseModel):
 def home():
     return {"message": "API is working"}
 
-@app.get("/r/(code)")
+@app.get("/r/{code}")
 def redirect_url(code: str):
     if code not in urls:
         raise HTTPException(status_code=404, detail="URL not found")
@@ -36,7 +36,7 @@ def get_url(code: str):
 
     return urls[code]
 
-@app.post("/url/{code}")
+@app.delete("/urls/{code}")
 def delete_url(code: str):
     if code not in urls:
         raise HTTPException(status_code=404, detail="URL not found")
