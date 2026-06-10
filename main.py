@@ -1,7 +1,7 @@
 import os
 import random
 import string
-import json
+
 
 
 def shorten_url(urls):
@@ -73,17 +73,6 @@ def is_valid_url(url):
 
 def pause():
     input("\nPress Enter to continue...")
-
-def load_urls():
-    try:
-        with open("urls.json", "r") as file:
-            return json.load(file)
-    except (FileNotFoundError, json.JSONDecodeError):
-        return{}
-
-def save_urls(data):
-    with open("urls.json", "w") as file:
-        json.dump(data, file, indent = 4)
 
 
 def generate_short_code(length= 6):
