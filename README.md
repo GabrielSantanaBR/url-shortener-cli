@@ -1,108 +1,79 @@
 # URL Shortener API
 
-A simple URL Shortener API built with **Python**, **FastAPI**, and **SQLite**.
+REST API para encurtamento de URLs construída com **Python**, **FastAPI** e **SQLite**. O projeto demonstra criação de endpoints, validação de dados, persistência e documentação automática de API.
 
-## Features
+## Funcionalidades
 
-* Create short URLs
-* Retrieve original URLs
-* Redirect using short codes
-* Count URL accesses
-* Delete URLs
-* Store data using SQLite
+- Criar URLs curtas
+- Recuperar a URL original
+- Redirecionar usando o código curto
+- Contabilizar acessos
+- Listar URLs cadastradas
+- Excluir URLs
+- Persistir dados com SQLite
+- Explorar e testar endpoints pelo Swagger/OpenAPI do FastAPI
 
-## Technologies
+## Tecnologias
 
-* Python 3
-* FastAPI
-* SQLite
-* Pydantic
-* Uvicorn
+Python 3 · FastAPI · SQLite · Pydantic · Uvicorn
 
-## Installation
-
-Clone the repository:
+## Executando localmente
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/url-shortener-cli.git
-```
-
-Enter the project folder:
-
-```bash
-cd url-shortener-cli
-```
-
-Install dependencies:
-
-```bash
+git clone https://github.com/GabrielSantanaBR/url-shortener-api.git
+cd url-shortener-api
 pip install -r requirements.txt
-```
-
-Run the API:
-
-```bash
 uvicorn api:app --reload
 ```
 
-The API will be available at:
+API: `http://127.0.0.1:8000`
 
-```
-http://127.0.0.1:8000
-```
-
-Swagger documentation:
-
-```
-http://127.0.0.1:8000/docs
-```
+Swagger: `http://127.0.0.1:8000/docs`
 
 ## Endpoints
 
-### POST /shorten
+| Método | Endpoint | Finalidade |
+|---|---|---|
+| POST | `/shorten` | Criar uma URL curta |
+| GET | `/urls` | Listar URLs armazenadas |
+| GET | `/url/{code}` | Consultar uma URL pelo código |
+| GET | `/r/{code}` | Redirecionar para a URL original |
+| DELETE | `/urls/{code}` | Excluir uma URL curta |
 
-Create a short URL.
-
-Example:
+Exemplo de criação:
 
 ```json
 {
-  "url": "https://www.google.com"
+  "url": "https://www.example.com"
 }
 ```
 
-### GET /urls
+## O que este projeto demonstra
 
-List all stored URLs.
+- Design de REST APIs
+- Rotas e códigos HTTP
+- Validação de entrada com Pydantic
+- Persistência em banco relacional
+- Separação entre API e camada de dados
+- Documentação automática com OpenAPI
+- Testes de comportamento de endpoints
 
-### GET /url/{code}
+## Estrutura
 
-Get information about a short URL.
-
-### GET /r/{code}
-
-Redirect to the original URL.
-
-### DELETE /urls/{code}
-
-Delete a short URL.
-
-## Project Structure
-
-```
-url-shortener-cli/
-│
+```text
+url-shortener-api/
 ├── api.py
 ├── database.py
 ├── main.py
 ├── requirements.txt
-├── README.md
-├── LICENSE
-├── .gitignore
-├── urls.db
-└── tests/
+├── tests/
+└── README.md
 ```
 
-## Author
+## Objetivo
 
-Developed as a portfolio project to practice Python, FastAPI, REST APIs, and SQLite.
+Projeto de portfólio criado para praticar backend em Python e fundamentos de APIs. Ele complementa projetos maiores do portfólio ao mostrar uma implementação menor, focada e fácil de inspecionar.
+
+## Autor
+
+Gabriel Santana — Software, Dados e Automação.
